@@ -29,5 +29,11 @@ return array(
             '/update' => 'POST',
             '/delete' => 'POST'
         )
+    ),
+    'paths' => array(
+        
+        'application' => 'C:\xampp\htdocs\stdemo\api\controllers',
+        'library' => 'lib',
+        '' => ''
     )
 );

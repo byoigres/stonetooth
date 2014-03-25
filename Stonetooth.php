@@ -1,7 +1,7 @@
 <?php
 
 require_once 'lib/Configuration.php';
-require_once 'lib/Router.php';
+require_once 'lib/AutoLoader.php';
 
 /**
  * Descripción de Stonetooth
@@ -15,9 +15,8 @@ require_once 'lib/Router.php';
  */
 class Stonetooth {
     private $appConfiguration;
-    private $configuration;
-    
-    const DS = DIRECTORY_SEPARATOR;
+    private $localConfiguration;
+    private $autoload;
 
     public function __construct() {
         
@@ -25,15 +24,9 @@ class Stonetooth {
 
     public function init($appConfig) {
         $this->appConfiguration['application'] = $appConfig;
-
-        /*
-        echo "<pre>";
-        var_dump($this->appConfiguration);
-        echo "</pre>";
-        exit(0);
-        # */
-
-        # $globalConfig = require_once 'configuration/Configuration.php';
+        $this->localConfiguration= require_once dirname(__FILE__) . '/configuration/Default.php';
+        
+        $this->autoload = new AutoLoader(implode("; ", $this->localConfiguration['paths']));
         
         $this->startRouting();
 
@@ -52,14 +45,17 @@ class Stonetooth {
         echo "</pre>";
 
         $router = new Router($appRoutes);
+        echo "Router loaded<br/>";
 
         $router->processRequest();
-
-        /*
-        echo "<pre>";
-        var_dump($this->appConfiguration);
-        echo "</pre>";
-        # */
+        
+        echo "<br/>Paths: " . get_include_path();
+        
+        $controller = new UserController();
+        
+        echo "<br/>UserController loaded<br/>";
+        
+        $controller->indexAction();
     }
 
     public function __destruct() {

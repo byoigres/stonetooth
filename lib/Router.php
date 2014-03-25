@@ -41,19 +41,31 @@ class Router {
         }
 
         $this->requestedMethod = $requestedMethod;
+        
+        /*
+        echo "Requested URI: {$this->requestedURI}<br/>";
 
-        $data = preg_match("%^/[A-Za-z0-9]+/[A-Za-z0-9]+$%", $this->requestedURI);
+        $result = preg_match_all("%/([A-Za-z0-9/]+)/([^/]+)/?$%", $this->requestedURI);
         
-        echo "^/[A-Za-z0-9]+/[A-Za-z0-9]+?$ => $data<br/>";
-        
-        $data = preg_match("%^/[A-Za-z0-9]+/?$%", $this->requestedURI);
-        
-        echo "^/[A-Za-z0-9]+/?$ => $data<br/>";
-        
-        $data = preg_match("%^/$%", $this->requestedURI);
-        
-        echo "^/$ => $data<br/>";
+        echo "/([A-Za-z0-9/]+)/([^/]+)/?$ => $result<br/>";
 
+        $result = preg_match_all("%^/[A-Za-z0-9]+/[A-Za-z0-9]+$%", $this->requestedURI);
+
+        echo "^/[A-Za-z0-9]+/[A-Za-z0-9]+?$ => $result<br/>";
+
+        $result = preg_match_all("%^/[A-Za-z0-9]+/?$%", $this->requestedURI);
+
+        echo "^/[A-Za-z0-9]+/?$ => $result<br/>";
+
+        $result = preg_match_all("%^/$%", $this->requestedURI);
+
+        echo "^/$ => $result<br/>";
+        
+        
+        echo "<pre>";
+        var_dump(array_filter(explode("/", $requestedURI)));
+        echo "</pre>";
+        */
         $this->matchRoutes();
     }
 
